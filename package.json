@@ -27,6 +27,7 @@
     "@vue/eslint-config-typescript": "^11.0.3",
     "eslint": "^8.44.0",
     "eslint-plugin-vue": "^9.15.1",
+    "sass": "^1.93.2",
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
     "vue-eslint-parser": "^9.3.1",
