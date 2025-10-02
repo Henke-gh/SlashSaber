@@ -9,6 +9,7 @@ export class Settings {
     public guardModel = "Default";
     public hiltModel = "Default";
     public rushMode = false;
+    public beginnerMode = false; //New mode added, WU24
 
     public replace(settings : Settings) {
         this.username = settings.username;
@@ -19,5 +20,6 @@ export class Settings {
         this.guardModel = settings.guardModel;
         this.hiltModel = settings.hiltModel;
         this.rushMode = settings.rushMode;
+        this.beginnerMode = settings.beginnerMode; //New mode added, WU24
     }
 }

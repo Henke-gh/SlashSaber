@@ -27,7 +27,7 @@ export default class ObstacleManager {
     private obstacles : Obstacle[] = [];
     private slicedPieces : SlicedPiece[] = [];
 
-    private obstacleTemplates : ObstacleTemplate[] = []; 
+    private obstacleTemplates : ObstacleTemplate[] = [];
 
     private readonly maxObstacles = 17;
     private minObstacleDistance = 2.4;
@@ -43,7 +43,7 @@ export default class ObstacleManager {
     private particleSprite = new THREE.Sprite();
     private readonly particleHooks = { onStart : () => {}, onUpdate : () => {}, onEnd : () => {} };
 
-    private constructor() { 
+    private constructor() {
         this.gameState = GameState.getInstance();
         this.environmentManager = EnvironmentManager.getInstance();
         let loadedObstacles = 0;
@@ -51,7 +51,7 @@ export default class ObstacleManager {
         for(const template of OBSTACLE_TEMPLTES) {
             this.gameState.loadGLTF(`/3d_assets/obstacles/${template.asset}`, (gltf) => {
                 const model = gltf.scene.children[0];
-                
+
                 this.obstacleTemplates.push({...template, sliceDirection: template.sliceDirection ?? SliceDirection.ANY,
                     rarity: template.rarity ?? Rarity.COMMON, model, animation: gltf.animations[0]});
                 loadedObstacles++;
@@ -70,7 +70,7 @@ export default class ObstacleManager {
         }
 
         this.gameState.addEventListener(EVENTS.settingsChanged, this.settingsChanged);
-        
+
         this.initParticles();
         this.settingsChanged();
     }
@@ -249,7 +249,7 @@ export default class ObstacleManager {
         this.particleSprite = new THREE.Sprite(material);
 
         this.particleSystem.addRenderer(new SpriteRenderer(this.gameState.getScene(), THREE));
-            
+
         this.gameState.addLogicHandler((d) => {
             if(this.particleSystem.canUpdate) this.particleSystem.update(d);
         });
@@ -259,7 +259,7 @@ export default class ObstacleManager {
     private getNewTemplate() : ObstacleTemplate {
         let filteredSelection = this.obstacleTemplates.filter(t => t.placement !== this.lastPlacement);
         const random = Math.random();
-        
+
         // Filter the array with random rarity
         for(const key of this.rarities) {
             const rarity = Rarity[key as keyof typeof Rarity]; // I Fucking hate TypeScript
@@ -269,10 +269,10 @@ export default class ObstacleManager {
             }
         }
 
-        filteredSelection = filteredSelection.filter(t => 
-            t.sliceDirection === SliceDirection.ANY || t.sliceDirection !== this.lastSliceDirection 
+        filteredSelection = filteredSelection.filter(t =>
+            t.sliceDirection === SliceDirection.ANY || t.sliceDirection !== this.lastSliceDirection
         );
-        
+
         // Make sure that every placement is frequently used
         const underusedPlacement = filteredSelection.find(t => this.lastPlacementUsage[t.placement] >= 5);
         const result = underusedPlacement ?? filteredSelection[Math.floor(Math.random() * filteredSelection.length)];
@@ -295,6 +295,10 @@ export default class ObstacleManager {
         if(this.gameState.settings.rushMode) {
             this.minObstacleDistance = 2.3;
             this.maxObstacleDistance = 2.80;
+        } //New Mode added, spaces out the bamboo obstacles - WU24
+        else if (this.gameState.settings.beginnerMode) {
+            this.minObstacleDistance = 8; //Might be a bit much, adjust as needed
+            this.maxObstacleDistance = 9; //Might be a bit much, adjust as needed
         }
         else {
             this.minObstacleDistance = 3.9;
