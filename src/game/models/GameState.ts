@@ -29,7 +29,10 @@ export default class GameState {
     private clock = new THREE.Clock();
 
     private readonly fixedTimeStep = 1.0 / 60.0; 
-    private readonly maxMovingSpeed = 5.35;
+    private easyModeSpeed = 2;
+    private standardModeSpeed = 3.53;
+
+    private readonly maxMovingSpeed : number;
 
     private moving = false;
 
@@ -40,6 +43,9 @@ export default class GameState {
     private events : { [key: string] : ((args : object | string | number | null) => void)[] } = {};
 
     private constructor() {
+
+        this.maxMovingSpeed = this.settings.easyMode ? this.easyModeSpeed : this.standardModeSpeed;
+
         this.scene = new THREE.Scene();
         this.world = new CANNON.World();
         this.textureLoader = new THREE.TextureLoader();
@@ -147,7 +153,7 @@ export default class GameState {
         this.distanceTravelled += this.movingSpeed * delta;
         this.score += this.movingSpeed * delta;
         if(this.movingSpeed < this.maxMovingSpeed && this.moving) {
-            this.movingSpeed = Math.min(this.movingSpeed + delta * (this.maxMovingSpeed - this.movingSpeed + 1), this.maxMovingSpeed);
+            this.movingSpeed = Math.min(this.movingSpeed + delta * (this.maxMovingSpeed - this.movingSpeed + 1) * 2, this.maxMovingSpeed);
         }
     }
 
