@@ -296,7 +296,7 @@ export default class ObstacleManager {
             this.minObstacleDistance = 2.3;
             this.maxObstacleDistance = 2.80;
         } //New Mode added, spaces out the bamboo obstacles - WU24
-        else if (this.gameState.settings.beginnerMode) {
+        else if (this.gameState.settings.easyMode) {
             this.minObstacleDistance = 8; //Might be a bit much, adjust as needed
             this.maxObstacleDistance = 9; //Might be a bit much, adjust as needed
         }

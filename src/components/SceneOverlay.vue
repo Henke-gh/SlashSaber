@@ -58,6 +58,8 @@
                             <span class="sensitivity-value">{{  settings.sensitivity }}</span>
                         </div>
                         <div class="form-group mb-0">
+                            <label for="easyMode">Easy mode</label>
+                            <input v-model="settings.easyMode" id="easyMode" class="checkbox" type="checkbox"> <!-- New Mode added, easyMode - WU24 --->
                             <label for="rushMode">Rush mode</label>
                             <input v-model="settings.rushMode" id="rushMode" class="checkbox" type="checkbox">
                         </div>
