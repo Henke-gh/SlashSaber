@@ -22,7 +22,7 @@
                 </button>
                 <v-tooltip text="Slash Saber is open-source!" location="top">
                     <template v-slot:activator="{ props }">
-                        <v-btn href="https://github.com/honzaap/SlashSaber" target="_blank" @click="$emit('toggleCursor')" v-bind="props" density="compact" 
+                        <v-btn href="https://github.com/honzaap/SlashSaber" target="_blank" v-bind="props" density="compact" 
                         icon="mdi-github" />
                     </template>
                 </v-tooltip>
