@@ -30,9 +30,9 @@ export default class GameState {
 
     private readonly fixedTimeStep = 1.0 / 60.0; 
     private easyModeSpeed = 2;
-    private standardModeSpeed = 3.53;
+    private standardModeSpeed = 20;
 
-    private readonly maxMovingSpeed : number;
+    private maxMovingSpeed : number;
 
     private moving = false;
 
@@ -170,8 +170,12 @@ export default class GameState {
         this.settings.username = settings.username;
         this.settings.sensitivity = settings.sensitivity ?? 1;
         this.settings.showCursor = settings.showCursor ?? false;
+        // added rush mode and easy mode
         this.settings.rushMode = settings.rushMode ?? false;
         this.settings.easyMode = settings.easyMode ?? false;
+
+        // Update maxMovingSpeed dynamically when settings change
+        this.maxMovingSpeed = this.settings.easyMode ? this.easyModeSpeed : this.standardModeSpeed;
 
         const swordChanged = this.settings.bladeModel !== settings.bladeModel 
             || this.settings.guardModel !== settings.guardModel
