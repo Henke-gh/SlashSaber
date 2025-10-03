@@ -171,6 +171,7 @@ export default class GameState {
         this.settings.sensitivity = settings.sensitivity ?? 1;
         this.settings.showCursor = settings.showCursor ?? false;
         this.settings.rushMode = settings.rushMode ?? false;
+        this.settings.easyMode = settings.easyMode ?? false;
 
         const swordChanged = this.settings.bladeModel !== settings.bladeModel 
             || this.settings.guardModel !== settings.guardModel
