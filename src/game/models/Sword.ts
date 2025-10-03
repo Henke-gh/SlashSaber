@@ -46,11 +46,21 @@ export default class Sword {
         this.model.up = new THREE.Vector3(0, 0, 1);
         this.gameState.sceneAdd(this.model);
         this.gameState.addLogicHandler(this.handleCollisions);
-        this.scoreMultiplier = this.gameState.settings.rushMode ? 1.25 : 0.75;
+        this.scoreMultiplier = this.gameState.settings.rushMode 
+            // New mode generate lower score - WU24
+            ? 1.25 
+            : this.gameState.settings.easyMode
+                ? 0.1 // Easy mode gives less score per hit - WU24
+                : 0.75;
 
         this.gameState.addEventListener(EVENTS.settingsChanged, () => {
             this.sensitivity = this.gameState.settings.sensitivity;
-            this.scoreMultiplier = this.gameState.settings.rushMode ? 1.25 : 0.75;
+            this.scoreMultiplier = this.gameState.settings.rushMode 
+                // New mode generate lower score - WU24
+                ? 1.25 
+                : this.gameState.settings.easyMode
+                    ? 0.1
+                    : 0.75;
         });
 
         this.gameState.addEventListener(EVENTS.swordChanged, () => {
