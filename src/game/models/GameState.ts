@@ -151,7 +151,10 @@ export default class GameState {
         }
 
         this.distanceTravelled += this.movingSpeed * delta;
-        this.score += this.movingSpeed * delta;
+        // New mode generate no score for moving - WU24
+        if (!this.settings.easyMode) {
+            this.score += this.movingSpeed * delta;
+        }
         if(this.movingSpeed < this.maxMovingSpeed && this.moving) {
             this.movingSpeed = Math.min(this.movingSpeed + delta * (this.maxMovingSpeed - this.movingSpeed + 1) * 2, this.maxMovingSpeed);
         }
