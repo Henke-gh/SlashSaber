@@ -112,7 +112,7 @@ async function createScene() {
         camera.updateProjectionMatrix();
         renderer.render(scene, camera);
     };
-    
+
     let prevRush = gameState.settings.rushMode;
 
     gameState.addEventListener(EVENTS.settingsChanged, () => {
@@ -162,7 +162,7 @@ function createCamera() {
 // Create and configure camera and sword controls
 function createControls(camera : THREE.Camera) {
     if(canvas.value == null) return;
-    
+
     (canvas.value as HTMLCanvasElement).onmousemove = (e) => {
         e.preventDefault();
 
@@ -243,7 +243,7 @@ function controlCamera(e : MouseEvent, camera : THREE.Camera) {
 
 onMounted(() => {
     loadSettings();
-    setTimeout(() => { 
+    setTimeout(() => {
         createScene();
     }, 100);
 
@@ -268,7 +268,7 @@ onMounted(() => {
         }
     });
 
-    let scoreInterval : number | null;
+    let scoreInterval : ReturnType<typeof setInterval> | null; //Changed type from incorrect number-type -- WU24
 
     gameState.addEventListener(EVENTS.load, () => {
         loading.value = false;
@@ -376,7 +376,7 @@ function updateSettings(newSettings : Settings) {
     localStorage.setItem("slash_saber_settings", JSON.stringify(data));
 }
 
-// Load settings from localStorage 
+// Load settings from localStorage
 function loadSettings() {
     const dataJson = localStorage.getItem("slash_saber_settings");
     if(!dataJson) return;
