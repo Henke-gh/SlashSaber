@@ -59,9 +59,9 @@
                         </div>
                         <div class="form-group mb-0">
                             <label for="easyMode">Easy mode</label>
-                            <input v-model="settings.easyMode" id="easyMode" class="checkbox" type="checkbox"> <!-- New Mode added, easyMode - WU24 --->
+                            <input v-model="settings.easyMode" id="easyMode" @change="onChange('easyMode')" class="checkbox" type="checkbox"> <!-- New Mode added, easyMode - WU24 --->
                             <label for="rushMode">Rush mode</label>
-                            <input v-model="settings.rushMode" id="rushMode" class="checkbox" type="checkbox">
+                            <input v-model="settings.rushMode" id="rushMode" @change="onChange('rushMode')" class="checkbox" type="checkbox"> <!-- "@change added" - WU24 --->
                         </div>
                         <small>Speeds up the game but results in a higher score gain.</small>
                         <div class="form-group">
@@ -186,6 +186,14 @@ function submitRun(settings : Settings, score : number) {
 defineExpose({
     submitRun
 });
+
+function onChange(mode: string) { // Added function to handle mode changes - WU24
+    if(mode === 'rushMode'){
+    settings.easyMode = false;
+    } else if(mode === 'easyMode'){
+    settings.rushMode = false;
+    }
+}
 
 </script>
 
